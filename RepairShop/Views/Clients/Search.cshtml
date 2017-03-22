@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<div>
+    @*@using (Ajax.BeginForm("SearchClient", new AjaxOptions { UpdateTargetId = "results" }))*@
+    
+        <input type="text" name="name" id="search" />
+        <input type="button" id="submit" value="Поиск" />
+    
+    <div id="results"></div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#submit').click(function(e) {
+                e.preventDefault();
+                var name = $('#search').val();
+                name = encodeURIComponent(name);
+                $('#results').load('@Url.Action("SearchClient", "Clients")?name=' + name)});
+        });
+    </script>
+</div>
+

@@ -1,0 +1,87 @@
+﻿@model RepairShop.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<div>
+    <h4>@Model.Surname @Model.Name</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+    </dl>
+
+    <h3> Orders: </h3>
+    @foreach (var item in ViewBag.Orders)
+    {
+        <dl class="dl-horizontal">
+            <dd> @item.Id </dd>
+            <dd>@item.OrderDate</dd>
+            <dd>@item.DeviceBrand</dd>
+            <dd>@item.DeviceSerialNumber</dd>
+            <dd>@item.DeviceCondition</dd>
+            <dd>@item.ProblemInfo</dd>
+        </dl>
+     }
+
+
+    <button id="addOrderButton" style="float: right"> Add Order </button>
+    <div id="addOrderForm" style="display: none">
+        
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#addOrderButton').click(function (e) {
+                var url = '@Url.Action("ShowAddingForm", "Orders")?clientId='+ @Model.Id;
+                if ($('#addOrderForm').is(':hidden')) {
+                    $('#addOrderForm').show();
+                    $('#addOrderForm').load(url);
+                } else {
+                    $('#addOrderForm').hide();
+                }
+                    
+            });
+        });
+    </script>
+    <br>
+</div>
+<p>
+    @Html.ActionLink("Back to Search", "Search")
+</p>
+
+
